@@ -9,7 +9,7 @@ beta   =  4224000;                            %Coeficiente de tensão térmica
 k_c      =  170;                              %Condutividade térmica
 T_0     =  300;                              %Temperatura de referência
 t_rel   =  10^(-5);                              %Tempo de relaxação
-rho    =  [2216 4432 8864];                             %Densidade do agregado sólido
+rho    =  2216;                              %Densidade do agregado sólido
 c_e     =  1040;                             %Calor específico relacionado à tensão constante
 
 
@@ -33,13 +33,13 @@ C_pf = zeros(1,length(omega));
 
 
 for j=1:length(omega)
-    for k=1:3
+    
 D_0 = k_c*(lambda+2*mi);
-D_1(j) =  -(omega(j)^2)*rho(k)*k_c + (-t_rel*(omega(j)^2) + 1i*omega(j))*((lambda+2*mi)*rho(k)*c_e + (beta^2)*T_0);
-D_2(j) =  -(rho(k)^2)*(omega(j)^2)*c_e*(-t_rel*(omega(j)^2)+i*omega(j));
+D_1(j) =  -(omega(j)^2)*rho*k_c + (-t_rel*(omega(j)^2) + 1i*omega(j))*((lambda+2*mi)*rho*c_e + (beta^2)*T_0);
+D_2(j) =  -(rho^2)*(omega(j)^2)*c_e*(-t_rel*(omega(j)^2)+i*omega(j));
 k_1(j) =   sqrt( (-D_1(j) -sqrt(D_1(j)^2 -4*D_0*D_2(j)))/(2*D_0));
 C_pf(j) = omega(j)/real(k_1(j));
-    end
+    
 end
 
 %% Gráficos
