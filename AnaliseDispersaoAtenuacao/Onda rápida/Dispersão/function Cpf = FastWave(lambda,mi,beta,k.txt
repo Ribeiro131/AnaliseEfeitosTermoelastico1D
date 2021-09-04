@@ -1,0 +1,36 @@
+
+
+
+
+
+
+function Cpf = FastWave(lambda,mi,beta,k_c,T_0,t_rel,rho,c_e)
+
+f_min = 1; 
+f_max = 1.e8;
+df_1  = 1;
+df_2  = 1.e2;
+num_1 = linspace(f_min,10000,df_1);
+num_2 = linspace(10000,f_max,df_2);
+f_1   = f_min+(0:num_1)*df_1;
+f_2   = f_1(end) + (1:num_2)*df_2;
+f     = f[f1,f2];
+omega = 2*pi*f;
+
+% Alocação de memória
+
+D_2 = zeros(1,length(omega));
+D_1 = zeros(1,length(omega));
+k_1 = zeros(1,length(omega));
+C_pf = zeros(1,length(omega));
+
+
+for j=1:length(omega)
+D_0 = k_c*(lambda+2*mi);
+D_1(j) =  -(omega(j)^2)*rho*k_c + (-t_rel*(omega(j)^2) + 1i*omega(j))*((lambda+2*mi)*rho*c_e + (beta^2)*T_0);
+D_2(j) =  -(rho^2)*(omega(j)^2)*c_e*(-t_rel*(omega(j)^2)+i*omega(j));
+k_1(j) =   sqrt( (-D_1(j) -sqrt(D_1(j)^2 -4*D_0*D_2(j)))/(2*D_0));
+C_pf(j) = omega(j)/real(k_1(j));
+end
+
+
